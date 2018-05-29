@@ -5,7 +5,7 @@
 let beacons: number[] = []
 let list = 0
 radio.onDataPacketReceived( ({ receivedNumber, signal, serial: serial2 }) =>  {
-    if (SignalDisplay.showSignal(signal) == 1) {
+    if (SignalDisplay.showSignal(signal)) {
         if (beacons.indexOf(serial2) < 0) {
             beacons.push(serial2)
             basic.showIcon(IconNames.Butterfly)

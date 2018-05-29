@@ -1,8 +1,8 @@
 /**
- * Define a custom function showSignal which plots the signal
+ * Defines a custom function showSignal which plots the signal
  * strength from the radio receiver using all the pixels on the display.
- * It also returns 1 if the signal of above a certain threshold, allowing
- * the caller to run some kind of 'found' logic.
+ * The return value indicates if the signal is above a certain threshold, allowing
+ * the caller to run custom 'found' logic.
  */
 
 //% weight=100 color=#0fbc11 icon="\uf1ec" 
@@ -13,7 +13,7 @@ namespace SignalDisplay {
      * @return whether the beacon has been found
      */
     //% block
-    export function showSignal(signal: number): number {
+    export function showSignal(signal: number): boolean {
         // Signal is -128 to -42, range of 86
         // We have 5*5 leds, 25 in total
 
@@ -36,12 +36,14 @@ namespace SignalDisplay {
             // from 128 to 255 in steps of 32
             led.setBrightness(128 + (leds - 24) * 32)
 
-            return 1
+			// Indicatge we are close enough to the transmitter
+            return true
         }
         else {
             led.setBrightness(128)
 
-            return 0
+			// To far away
+            return false
         }
     }
 }

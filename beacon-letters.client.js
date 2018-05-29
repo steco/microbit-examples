@@ -5,7 +5,7 @@
 let beacons: number[] = []
 let letters: string = ""
 radio.onDataPacketReceived( ({ receivedString, signal, serial: serial2 }) =>  {
-    if (SignalDisplay.showSignal(signal) == 1) {
+    if (SignalDisplay.showSignal(signal)) {
     	if(beacons.indexOf(serial2) < 0)
         {
             beacons.push(serial2)
