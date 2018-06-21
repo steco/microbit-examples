@@ -6,7 +6,7 @@
  */
 
 //% weight=100 color=#0fbc11 icon="\uf1ec" 
-namespace SignalDisplay {
+namespace Display {
     /**
      * Display a radio signal level on the LED display
      * @param signal the radio signal level
@@ -36,14 +36,43 @@ namespace SignalDisplay {
             // from 128 to 255 in steps of 32
             led.setBrightness(128 + (leds - 24) * 32)
 
-			// Indicatge we are close enough to the transmitter
+            // Indicate we are close enough to the transmitter
             return true
         }
         else {
             led.setBrightness(128)
 
-			// To far away
+            // To far away
             return false
         }
+    }
+
+    /**
+     * Display a directional line on the display
+     * @param direction the direction to draw the line
+     * 0-15 where 0 is upwards and moving clockwise
+     */
+    //% block
+    export function drawArrow(direction: number) {
+
+        let xData = [2, 3, 4, 4, 4, 4, 4, 3, 2, 1, 0, 0, 0, 0, 0, 1]
+        let yData = [0, 0, 0, 1, 2, 3, 4, 4, 4, 4, 4, 3, 2, 1, 0, 0]
+
+        let x : number = xData[direction]
+        let y : number = yData[direction]
+
+        basic.clearScreen()
+
+        // Centre
+        led.plotBrightness(2,2, 255);
+
+        // Intermediate
+        let xI = (x + 2) / 2
+        let yI = (y + 2) / 2
+
+        led.plotBrightness(xI, yI, 255)
+
+        // Edge
+        led.plotBrightness(x, y, 255)
     }
 }
