@@ -1,6 +1,10 @@
-input.onButtonPressed(Button.A, () => {
+// Draw a compass on a Micro:bit
+
+// This requires the Display extension from https://github.com/steco/microbit-display
+
+input.onButtonPressed(Button.AB, () => {
     input.calibrateCompass()
 })
 basic.forever(() => {
-    Display.drawArrow((360 - input.compassHeading()) * 2 / 45)
+    display.drawArrow((360 - input.compassHeading()) * 2 / 45)
 })
