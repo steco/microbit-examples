@@ -1,15 +1,10 @@
-// Client code for the beacon-letters game.
-// Listens for the radio signal, plots it on the display and records
-// the letters that the beacon is transmitting
-
-// This requires the Display extension from https://github.com/steco/microbit-display
-
 let letters = ""
 let beacons: number[] = []
+let lastReceivedTime = 0
 let showRadio = false
 radio.onDataPacketReceived(function ({ receivedString, signal, serial: serial2 }) {
     if (showRadio) {
-        display.showSignal(signal, -70, -46)
+        display.showSignal(signal, -100, -46)
         if (signal > -60) {
             if (beacons.indexOf(serial2) < 0) {
                 beacons.push(serial2)
@@ -17,6 +12,7 @@ radio.onDataPacketReceived(function ({ receivedString, signal, serial: serial2 }
             }
         }
     }
+    lastReceivedTime = input.runningTime()
 })
 input.onButtonPressed(Button.B, function () {
     showRadio = false
@@ -27,3 +23,9 @@ input.onButtonPressed(Button.B, function () {
 })
 showRadio = true
 radio.setGroup(1)
+basic.forever(function () {
+    basic.pause(1000)
+    if (lastReceivedTime - input.runningTime() > 1000) {
+        basic.clearScreen()
+    }
+})
