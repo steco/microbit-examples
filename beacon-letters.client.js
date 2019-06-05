@@ -1,8 +1,12 @@
 let letters = ""
 let beacons: number[] = []
 let lastReceivedTime = 0
+let signal = 0
+let serial2 = 0
 let showRadio = false
-radio.onDataPacketReceived(function ({ receivedString, signal, serial: serial2 }) {
+radio.onReceivedString(function (receivedString) {
+    serial2 = radio.receivedPacket(RadioPacketProperty.SignalStrength)
+    signal = radio.receivedPacket(RadioPacketProperty.SignalStrength)
     if (showRadio) {
         display.showSignal(signal, -100, -46)
         if (signal > -60) {
