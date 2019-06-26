@@ -5,7 +5,7 @@ let signal = 0
 let serial2 = 0
 let showRadio = false
 radio.onReceivedString(function (receivedString) {
-    serial2 = radio.receivedPacket(RadioPacketProperty.SignalStrength)
+    serial2 = radio.receivedPacket(RadioPacketProperty.SerialNumber)
     signal = radio.receivedPacket(RadioPacketProperty.SignalStrength)
     if (showRadio) {
         display.showSignal(signal, -100, -46)
