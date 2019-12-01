@@ -29,7 +29,7 @@ showRadio = true
 radio.setGroup(1)
 basic.forever(function () {
     basic.pause(1000)
-    if (lastReceivedTime - input.runningTime() > 1000) {
+    if (input.runningTime() - lastReceivedTime > 1000) {
         basic.clearScreen()
     }
 })
