@@ -1,0 +1,28 @@
+let Notes: string[]
+Notes = ["a", "B", "c"]
+basic.forever(function () {
+    basic.showIcon(IconNames.LeftTriangle)
+    basic.pause(1000)
+    basic.clearScreen()
+    for (let value2 of Notes) {
+        basic.showString(value2)
+        radio.sendValue(value2.substr(0, 1), 0)
+        basic.pause(value2.charCodeAt(0) > 90 ? 500 : 1000)
+    }
+})
+radio.setGroup(1)
+radio.setTransmitPower(7)
+basic.showIcon(IconNames.Square)
+
+
+
+Instrument
+
+input.onButtonPressed(Button.A, function () {
+    basic.clearScreen()
+})
+radio.onReceivedValue(function (Instruction, value) {
+    basic.showString("" + Instruction)
+})
+radio.setGroup(1)
+basic.showIcon(IconNames.Square)

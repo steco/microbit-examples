@@ -1,0 +1,33 @@
+let Notes: number[] = []
+let Play = ""
+let Beats = 0
+let Conductor = ""
+radio.onReceivedValue(function (Instruction, value) {
+    if (Instruction == Play) {
+        Beats = 1
+        while (value > 1000) {
+            value = value / 1000
+            Beats = Beats + 1
+        }
+        music.playTone(262, Beats * 500)
+    }
+})
+radio.setGroup(1)
+Conductor = "Conductor"
+Play = "Play"
+Notes = [262 * 1000, 262, 294]
+basic.forever(function () {
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . #
+        . # . # .
+        . . # . .
+        `)
+    basic.pause(1000)
+    basic.clearScreen()
+    for (let value2 of Notes) {
+        radio.sendValue(Conductor, value2)
+        basic.pause((Math.log(value2) / Math.LN10 / 3 - 0) * 1000)
+    }
+})

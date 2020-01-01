@@ -1,0 +1,114 @@
+kids write something to listen on the radio and display something, kids pressed button which sends radio to speaker to play note
+
+conductor
+ - send notes on radio
+ 
+kids
+ - receive note, display icon
+ - press button, send note
+ 
+speaker
+ - receive note
+ 
+ 
+ 
+ 
+ 
+Simulator
+
+1234567891011121314151617181920
+input.onButtonPressed(Button.A, () => {    radio.sendValue("Conductor", 262)})radio.onDataPacketReceived( ({ receivedString: name, receivedNumber: value }) =>  {    if (name == "Conductor" && value == 262) {        basic.showIcon(IconNames.Heart)        basic.showNumber(value)    }    if (name == "Play") {        music.playTone(value, 1000)    }})input.onButtonPressed(Button.AB, () => {    radio.sendValue("Play", 262)})input.onButtonPressed(Button.B, () => {    radio.sendValue("Conductor", 330)})radio.setGroup(1) 
+
+    }
+})
+input.onButtonPressed(Button.AB, () => {
+    radio.sendValue("Play", 262)
+})
+input.onButtonPressed(Button.B, () => {
+    radio.sendValue("Conductor", 330)
+})
+radio.setGroup(1)
+
+
+Find
+No Results
+
+var value: 262
+
+
+Type a name for your project
+conductor
+ms: number, hint
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Conductor
+Simulator
+
+12345678910111213
+input.onButtonPressed(Button.A, () => {    basic.showIcon(IconNames.Yes)    radio.sendValue("Conductor", 262)    radio.sendValue("Conductor", 349)    basic.clearScreen()})radio.onDataPacketReceived( ({ receivedString: name, receivedNumber: value }) =>  {    if (name == "Play") {        basic.showNumber(value)    }})radio.setGroup(1) 
+
+input.onButtonPressed(Button.A, () => {
+    basic.showIcon(IconNames.Yes)
+    radio.sendValue("Conductor", 262)
+    radio.sendValue("Conductor", 349)
+    basic.clearScreen()
+})
+radio.onDataPacketReceived( ({ receivedString: name, receivedNumber: value }) =>  {
+    if (name == "Play") {
+        basic.showNumber(value)
+    }
+
+
+Find
+No Results
+
+
+Type a name for your project
+conductor
+ms: number, hint
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Child
+-----
+let myNote = 0radio.onDataPacketReceived( ({ receivedString: name, receivedNumber: value }) =>  {    if (name == "Conductor" && value == myNote) {        basic.showIcon(IconNames.Heart)    }})input.onButtonPressed(Button.AB, () => {    radio.sendValue("Play", myNote)})myNote = 349radio.setGroup(1) 
+
+let myNote = 0
+radio.onDataPacketReceived( ({ receivedString: name, receivedNumber: value }) =>  {
+    if (name == "Conductor" && value == myNote) {
+        basic.showIcon(IconNames.Heart)
+    }
+})
+input.onButtonPressed(Button.AB, () => {
+    radio.sendValue("Play", myNote)
+})
+myNote = 349
