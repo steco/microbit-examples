@@ -2,11 +2,13 @@
 // Roll (left and right) and Pitch (forward to back) are sent
 // separately via a radio connection to the robot
 
+let radioChannel = 2
 let pitch = 0
 let roll = 0
 let displayX = 0
 let displayY = 0
-radio.setGroup(1)
+radio.setGroup(radioChannel)
+basic.showNumber(radioChannel)
 radio.setTransmitPower(7)
 basic.forever(function () {
     pitch = input.rotation(Rotation.Pitch)
