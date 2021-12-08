@@ -5,7 +5,9 @@
 
 let pitch = 0
 let roll = 0
-radio.setGroup(1)
+let radioChannel = 2
+radio.setGroup(radioChannel)
+basic.showNumber(radioChannel)
 
 basic.forever(function () {
     let displayX = Math.round(pins.map(roll, -90, 90, 0, 4))
