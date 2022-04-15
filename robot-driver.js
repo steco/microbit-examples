@@ -44,5 +44,24 @@ radio.onReceivedValue(function (name: string, value: number) {
 
         case "roll":
             roll = value
-    }
-})
+
+            case "open":
+                open()
+    
+            case "close":
+                close()
+        }
+    })
+    
+function open() {
+    basic.showString("O")
+    pins.servoWritePin(AnalogPin.P0, 0)
+    basic.pause(500)
+}
+
+function close() {
+    basic.showString("C")
+    pins.servoWritePin(AnalogPin.P0, 90)
+    basic.pause(500)
+}
+    

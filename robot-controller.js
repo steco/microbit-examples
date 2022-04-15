@@ -1,6 +1,7 @@
 // Remote control for robot.
 // Roll (left and right) and Pitch (forward to back) are sent
-// separately via a radio connection to the robot
+// constantly via a radio connection to the robot
+// Open/close commands sent when buttons pressed
 
 let radioChannel = 2
 let pitch = 0
@@ -20,4 +21,11 @@ basic.forever(function () {
 
     radio.sendValue("pitch", pitch)
     radio.sendValue("roll", roll)
+})
+
+input.onButtonPressed(Button.A, function () {
+    radio.sendValue("open", 0)
+})
+input.onButtonPressed(Button.B, function () {
+    radio.sendValue("close", 0)
 })
