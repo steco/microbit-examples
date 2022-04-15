@@ -1,19 +1,25 @@
 // Driver for motorised robot.
-// Roll (left and right) and Pitch (forward to back) are received
-// via a radio connection from the controller and used to controller
-// the speed of the motors
+//
+// Roll (left to right) and Pitch (forward to back) values are received
+// via a radio connection from the controller and used to control
+// the speed of the motors. In addition, "open" and "close" commands
+// are used to open/close a jaw attached to the robot
 
 let pitch = 0
 let roll = 0
 let radioChannel = 2
+let hideLed = false
 radio.setGroup(radioChannel)
 basic.showNumber(radioChannel)
 
 basic.forever(function () {
-    let displayX = Math.round(pins.map(roll, -90, 90, 0, 4))
-    let displayY = Math.round(pins.map(pitch, -90, 90, 0, 4))
-    basic.clearScreen()
-    led.plot(displayX, displayY)
+    if(!hideLed)
+    {
+        let displayX = Math.round(pins.map(roll, -90, 90, 0, 4))
+        let displayY = Math.round(pins.map(pitch, -90, 90, 0, 4))
+        basic.clearScreen()
+        led.plot(displayX, displayY)
+    }
 
     // Assuming no roll (left-right) then set speed of both motors to the same
     let speedLeft = pins.map(pitch, -90, 90, -200, 200)
@@ -41,27 +47,36 @@ radio.onReceivedValue(function (name: string, value: number) {
     switch (name) {
         case "pitch":
             pitch = value
+            break
 
         case "roll":
             roll = value
+            break
 
-            case "open":
-                open()
+        case "open":
+            open()
+            break
+
+        case "close":
+            close()
+            break
+    }
     
-            case "close":
-                close()
-        }
-    })
-    
+})
+
 function open() {
+    hideLed = true
     basic.showString("O")
     pins.servoWritePin(AnalogPin.P0, 0)
     basic.pause(500)
+    hideLed = false
 }
 
 function close() {
+    hideLed = true
     basic.showString("C")
     pins.servoWritePin(AnalogPin.P0, 90)
     basic.pause(500)
+    hideLed = false
 }
-    
+
